@@ -2,10 +2,14 @@
 //
 
 #include <iostream>
-
+#include "SerialPort.hpp"
 int main()
 {
-    std::cout << "Hello World!\n";
+    SerialPort serial{};
+    serial.openPort("COM3");
+    serial.initPort(CBR_9600, 8, ONESTOPBIT, NOPARITY);
+    serial.Send("TEST");
+    return 0;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
