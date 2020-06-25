@@ -12,7 +12,8 @@ public:
 	void initPort(unsigned Baudrate, unsigned ByteSize, unsigned StopBits, unsigned Parity);
 	void closePort();
 	static std::string parse(LPCWSTR);
-
+	void operator<<(std::string&);
+	void operator<<(const char*);
 private:
 	HANDLE hSerial_;
 	DCB dcb{0};

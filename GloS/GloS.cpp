@@ -16,7 +16,7 @@ int main()
     if (finder.find())
     {  
         auto port = SerialPort::parse(finder.getFoundPort(0));
-        std::cout << "Znaleziono port: " << port << std::endl;
+        std::cout << "Found port : " << port << std::endl;
         if (serial.openPort(port))
         {
             serial.initPort(CBR_115200, 8, ONESTOPBIT, NOPARITY);

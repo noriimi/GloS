@@ -57,3 +57,11 @@ std::string SerialPort::parse(LPCWSTR source)
 	else
 		return "";
 }
+void SerialPort::operator<<(std::string& packet)
+{
+	this->Send(packet);
+}
+void SerialPort::operator<<(const char* packet)
+{
+	this->Send(std::string(packet));
+}
