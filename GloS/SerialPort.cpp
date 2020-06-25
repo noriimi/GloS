@@ -3,18 +3,21 @@ SerialPort::SerialPort()
 {
 
 }
-void SerialPort::Send(const char * packet)
+void SerialPort::Send(std::string packet)
 {
-	DWORD NoOfBytesWritten=0;
-	WriteFile(hSerial_, packet, sizeof(packet), &NoOfBytesWritten, NULL);
+	unsigned long NoOfBytesWritten=0;
+	WriteFile(hSerial_,
+		packet.c_str()
+		,packet.size()
+		, &NoOfBytesWritten, NULL);
 }
 std::string SerialPort::Read()
 {
 	return "";
 }
-bool SerialPort::openPort(const char* nameOfPort)
+bool SerialPort::openPort(std::string& nameOfPort)
 {
-	hSerial_ = CreateFileA(nameOfPort, GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_EXISTING, 0, NULL);
+	hSerial_ = CreateFileA(nameOfPort.c_str(), GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_EXISTING, 0, NULL);
 	if (hSerial_ == INVALID_HANDLE_VALUE)
 		return false;
 	else
@@ -35,4 +38,22 @@ void SerialPort::initPort(unsigned Baudrate,unsigned ByteSize,unsigned StopBits,
 void SerialPort::closePort()
 {
 	CloseHandle(hSerial_);
+}
+
+std::string SerialPort::parse(LPCWSTR source)
+{
+	unsigned size = 0;
+	while (source[size] != '\0')
+		size++;
+	if (size > 1)
+	{
+		std::string test = "";
+		for (int i = 0; i < size; i++)
+		{
+			test += char(source[i]);
+		}
+		return test;
+	}
+	else
+		return "";
 }
