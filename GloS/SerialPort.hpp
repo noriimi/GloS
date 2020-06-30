@@ -5,17 +5,18 @@
 class SerialPort
 {
 public:
-	SerialPort();
+	SerialPort(std::string, unsigned Baudrate, unsigned ByteSize, unsigned StopBits, unsigned Parity, unsigned XON);
+	~SerialPort();
 	std::string Read();
 	void Send(std::string);
-	bool openPort(std::string &);
-	void initPort(unsigned Baudrate, unsigned ByteSize, unsigned StopBits, unsigned Parity);
-	void closePort();
+	void Send(void*,size_t);
+	bool isOpen();
 	static std::string parse(LPCWSTR);
 	void operator<<(std::string&);
 	void operator<<(const char*);
 private:
 	HANDLE hSerial_;
 	DCB dcb{0};
+	COMMTIMEOUTS timeouts = { 0 };
 	};
 
