@@ -10,6 +10,7 @@ public:
 	std::string Read();
 	void Send(std::string);
 	void Send(void*,size_t);
+	void UpdateLED(void*,size_t size);
 	bool isOpen();
 	static std::string parse(LPCWSTR);
 	void operator<<(std::string&);

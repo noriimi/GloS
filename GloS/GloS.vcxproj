@@ -150,10 +150,12 @@
     <ClCompile Include="GloS.cpp" />
     <ClCompile Include="PortsFinder.cpp" />
     <ClCompile Include="SerialPort.cpp" />
+    <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PortsFinder.hpp" />
     <ClInclude Include="SerialPort.hpp" />
+    <ClInclude Include="Timer.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -7,11 +7,13 @@ SerialPort::SerialPort(std::string nameOfPort, unsigned Baudrate, unsigned ByteS
 	dcb.ByteSize = ByteSize;
 	dcb.StopBits = StopBits;
 	dcb.Parity = Parity;
-	char xn = 17;
-	char xf = 19;
-	dcb.fOutX = XON;
-	dcb.XoffChar = xf;
-	dcb.XonChar = xn;
+	if (XON) {
+		char xn = 17;
+		char xf = 19;
+		dcb.fOutX = XON;
+		dcb.XoffChar = xf;
+		dcb.XonChar = xn;
+	}
 	SetCommState(hSerial_, &dcb);
 	timeouts.ReadIntervalTimeout = 50;
 	timeouts.ReadTotalTimeoutConstant = 50;
@@ -28,6 +30,7 @@ void SerialPort::Send(void* source,size_t size)
 {
 	unsigned long NoOfBytesWritten = 0;
 	WriteFile(hSerial_,source, (DWORD)size, &NoOfBytesWritten, NULL);
+	//std::cout << "wyslano\n ";
 }
 std::string SerialPort::Read()
 {//TODO
@@ -90,4 +93,9 @@ void SerialPort::operator<<(const char* packet)
 SerialPort::~SerialPort()
 {
 	CloseHandle(hSerial_);
+}
+void SerialPort::UpdateLED(void* frame, size_t size)
+{
+	unsigned long NoOfBytesWritten = 0;
+	WriteFile(hSerial_, frame, (DWORD)size, &NoOfBytesWritten, NULL);
 }

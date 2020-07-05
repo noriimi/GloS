@@ -338,3 +338,5 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/GloS/Timer.cpp
+/GloS/Timer.hpp
