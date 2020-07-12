@@ -7,30 +7,48 @@
 #include <iostream>
 #include "SerialPort.hpp"
 #include "PortsFinder.hpp"
+#include "threadHelper.hpp"
+#include "RtAudio/RtAudio.h"
+int record(void* outputBuffer, void* inputBuffer, unsigned int nBufferFrames, double streamTime, RtAudioStreamStatus, void* userData)
+{
+	//callback executed after every sample
+    return 0;
+}
 int main()
 {
-  /*
-    PortsFinder finder{};
-    uint8_t data[__HEADERSIZE+3*NUMOFLEDS];
-    data[0] = 0xDE;
-    data[1] = 0xAD;
-    data[2] = 0xBE;
-    data[3] = 0xEF;
-        
-    if (finder.find())
-    {  
-        auto port = SerialPort::parse(finder.getFoundPort(0));
-        std::cout << "Found port : " << port << std::endl;
-        SerialPort serial(port, CBR_1000000,8,ONESTOPBIT,NOPARITY,FALSE);
-        if (serial.isOpen())
-        {
-            while (1)
-            {
-                serial.UpdateLED(data, __HEADERSIZE + 3 * NUMOFLEDS);
-            }
-        }
+	RtAudio sound{};
+    if (sound.getDeviceCount() < 1)
+    {
+        std::cout << "\nNo audio devices found!\n";
+        exit(0);
     }
-    
-    return 0;*/
-}
+    RtAudio::StreamParameters parameters;
+    parameters.deviceId = 3;
+    parameters.nChannels = 1;
+    parameters.firstChannel = 0;
+    unsigned int sampleRate = 44100;
+    unsigned int bufferFrames = 1024;
+    try {
+        sound.openStream(NULL, &parameters, RTAUDIO_FLOAT32, sampleRate, &bufferFrames, &record);
+        sound.startStream();
+    }
+    catch (RtAudioError& e)
+    {
+        e.printMessage();
+        exit(0);
+    }
+    char input;
+    std::cout << "\nRecording ... press <enter> to quit. \n";
+    std::cin.get(input);
+    try
+    {
+        sound.stopStream();
 
+    }
+    catch (RtAudioError& e)
+    {
+        e.printMessage();
+    }
+    if (sound.isStreamOpen())
+        sound.closeStream();
+}
