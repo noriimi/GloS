@@ -23,3 +23,37 @@ void thrFunc() noexcept//Placeholder function
 			return;
 	}
 }
+threadHelper::threadHelper(void(*func)())
+{
+	pThread_ = new std::thread(func);
+}
+threadHelper::threadHelper(std::function<void()> func)
+{
+	pThread_ = new std::thread(func);
+}
+threadHelper::~threadHelper()
+{
+	killThread();
+	delete pThread_;
+}
+void threadHelper::killThread()
+{
+	s_kill_ = true;
+	if (pThread_->joinable())
+		pThread_->detach();
+}
+void threadHelper::joinThread()
+{
+	if (pThread_->joinable())
+		pThread_->join();
+}
+void threadHelper::interruptThread()
+{
+	if (!s_kill_)
+		s_interrupt_ = true;
+}
+void threadHelper::resumeThread()
+{
+	if (!s_kill_)
+		s_interrupt_ = false;
+}

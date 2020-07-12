@@ -7,7 +7,7 @@ class threadHelper
 {
 public:
 	threadHelper(void (*func)());
-	threadHelper(std::function<void>);
+	threadHelper(std::function<void()>);
 	~threadHelper();
 	void killThread();
 	void interruptThread();
