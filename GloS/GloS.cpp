@@ -9,7 +9,7 @@
 #include "PortsFinder.hpp"
 int main()
 {
-    
+  /*
     PortsFinder finder{};
     uint8_t data[__HEADERSIZE+3*NUMOFLEDS];
     data[0] = 0xDE;
@@ -31,6 +31,6 @@ int main()
         }
     }
     
-    return 0;
+    return 0;*/
 }
 
