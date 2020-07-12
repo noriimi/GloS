@@ -13,10 +13,18 @@ public:
 	void interruptThread();
 	void resumeThread();
 	void joinThread();
-	friend void thrFunc() noexcept;
+	class staticFlags {
+		static std::atomic <bool> s_kill_;
+		static std::atomic<bool> s_interrupt_;
+	public:
+		friend class threadHelper;
+		friend void thrFunc() noexcept;
+		friend int record(void* outputBuffer, void* inputBuffer, unsigned int nBufferFrames, double streamTime, unsigned int status, void* userData);
+	};
+	
 private:
-	static std::atomic <bool> s_kill_;
-	static std::atomic<bool> s_interrupt_;
+	
 	std::thread* pThread_;
+	
 };
 
