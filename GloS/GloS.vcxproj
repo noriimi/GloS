@@ -159,6 +159,7 @@
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="thrFunc.h" />
     <ClInclude Include="PortsFinder.hpp" />
     <ClInclude Include="SerialPort.hpp" />
     <ClInclude Include="threadHelper.hpp" />

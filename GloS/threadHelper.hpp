@@ -2,12 +2,12 @@
 #include <atomic>
 #include <thread>
 #include <functional>
-void thrFunc()noexcept;
+void thrFunc(int16_t[],unsigned)noexcept;
 class threadHelper
 {
 public:
-	threadHelper(void (*func)());
-	threadHelper(std::function<void()>);
+	threadHelper(void (*func)(int16_t[],unsigned),int16_t[],unsigned);
+	threadHelper(std::function<void(int16_t[],unsigned)>, int16_t[],unsigned);
 	~threadHelper();
 	void killThread();
 	void interruptThread();
@@ -16,9 +16,10 @@ public:
 	class staticFlags {
 		static std::atomic <bool> s_kill_;
 		static std::atomic<bool> s_interrupt_;
+		static std::atomic<bool> s_read_;
 	public:
 		friend class threadHelper;
-		friend void thrFunc() noexcept;
+		friend void thrFunc(int16_t[],unsigned) noexcept;
 		friend int record(void* outputBuffer, void* inputBuffer, unsigned int nBufferFrames, double streamTime, unsigned int status, void* userData);
 	};
 	

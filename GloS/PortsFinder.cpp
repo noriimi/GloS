@@ -6,7 +6,7 @@ bool PortsFinder::find()
 	wchar_t lpTargetPath[1000];
 	for (int i = 0; i <= 8; i++)
 	{
-		if (QueryDosDevice(lpDeviceName[i], (LPWSTR)lpTargetPath, 1000))
+		if (QueryDosDeviceW(lpDeviceName[i], (LPWSTR)lpTargetPath, 1000))
 		{
 			foundPorts_.push_back(lpDeviceName[i]);
 			isFound = true;

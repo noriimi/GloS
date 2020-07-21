@@ -1,36 +1,16 @@
+
 #include "threadHelper.hpp"
-#include <iostream>
-#include <chrono>
 std::atomic<bool> threadHelper::staticFlags::s_interrupt_ = false;
 std::atomic<bool> threadHelper::staticFlags::s_kill_ = false;
-void thrFunc() noexcept//Placeholder function
+std::atomic<bool> threadHelper::staticFlags::s_read_ = false;
+
+threadHelper::threadHelper(void(*func)(int16_t[],unsigned ),int16_t data[],unsigned rs)
 {
-	while (1)
-	{
-		if (threadHelper::staticFlags::s_kill_)
-			return;
-		if (threadHelper::staticFlags::s_interrupt_)
-		{
-			std::cout << "SLEEPING\n";
-			std::this_thread::sleep_for(std::chrono::milliseconds(10));
-			
-		}
-		else
-		{
-			std::cout << "WORKING\n";
-			std::this_thread::sleep_for(std::chrono::milliseconds(50));
-		}
-		if (threadHelper::staticFlags::s_kill_)
-			return;
-	}
+	pThread_ = new std::thread(func,data,rs);
 }
-threadHelper::threadHelper(void(*func)())
+threadHelper::threadHelper(std::function<void(int16_t[],unsigned)> func,int16_t data[],unsigned rs)
 {
-	pThread_ = new std::thread(func);
-}
-threadHelper::threadHelper(std::function<void()> func)
-{
-	pThread_ = new std::thread(func);
+	pThread_ = new std::thread(func,data,rs);
 }
 threadHelper::~threadHelper()
 {
