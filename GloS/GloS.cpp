@@ -3,12 +3,14 @@
 #define CBR_1000000 1000000
 #define CBR_2000000 2000000
 #define CBR_500000 500000
+
 #define __HEADERSIZE 4
 #include "thrFunc.h"
 
+
 int record(void* outputBuffer, void* inputBuffer, unsigned int nBufferFrames, double streamTime, unsigned int status, void* userData)
 {
-    memcpy(userData, inputBuffer, NUMOFSAMPLES * sizeof(uint16_t));
+    memcpy(userData, inputBuffer, NUMOFSAMPLES * sizeof(sample_t));
     threadHelper::staticFlags::s_read_ = true;
 	//callback executed after every sample
     if (status)
@@ -19,8 +21,8 @@ int main()
 {
 	RtAudio sound{};
     unsigned rs = 0;
-    int16_t data[NUMOFSAMPLES];
-    auto sum = 1000;
+    sample_t data[NUMOFSAMPLES];
+    auto sum = NUMOFSAMPLES;
     auto res = 0;
     while (sum > (NUMOFSAMPLES / 2))
     {
@@ -59,7 +61,7 @@ int main()
         exit(0);
     }
     char input;
-    std::function<void(int16_t[],unsigned)> func = thrFunc;
+    std::function<void(sample_t[],unsigned)> func = thrFunc;
     threadHelper worker(func, data,rs);
     std::cout << "\nRecording ... press <enter> to quit. \n";
     std::cin.get(input);
