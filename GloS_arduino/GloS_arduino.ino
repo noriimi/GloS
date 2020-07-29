@@ -9,7 +9,6 @@ CRGB leds[NUM_LEDS];
 void setup()
 {
   LEDS.addLeds<WS2812,DATA_PIN,GRB>(leds,NUM_LEDS);
-  LEDS.setBrightness(84);
   Serial.begin(115200);
   for(int i=0;i<60;i++)
   leds[i]=CRGB::Blue;
