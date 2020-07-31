@@ -156,7 +156,6 @@
     <ClCompile Include="RtAudio\RtAudio.cpp" />
     <ClCompile Include="SerialPort.cpp" />
     <ClCompile Include="threadHelper.cpp" />
-    <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="thrFunc.h" />

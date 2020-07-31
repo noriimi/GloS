@@ -24,9 +24,6 @@
     <ClCompile Include="PortsFinder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Timer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="threadHelper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
