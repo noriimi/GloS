@@ -6,8 +6,8 @@ typedef int16_t sample_t;
 class threadHelper
 {
 public:
-	threadHelper(void (*func)(sample_t[],unsigned),sample_t[],unsigned);
-	threadHelper(std::function<void(sample_t[],unsigned)>, sample_t[],unsigned);
+	threadHelper(void (*func)(sample_t[],unsigned, const std::string&),sample_t[],unsigned, const std::string&);
+	threadHelper(std::function<void(sample_t[],unsigned, const std::string&)>, sample_t[],unsigned, const std::string&);
 	~threadHelper();
 	void killThread();
 	void interruptThread();
@@ -19,7 +19,7 @@ public:
 		static std::atomic<bool> s_read_;
 	public:
 		friend class threadHelper;
-		friend void thrFunc(sample_t[],unsigned) noexcept;
+		friend void thrFunc(sample_t[],unsigned,const std::string&) noexcept;
 		friend int record(void* outputBuffer, void* inputBuffer, unsigned int nBufferFrames, double streamTime, unsigned int status, void* userData);
 	};
 	

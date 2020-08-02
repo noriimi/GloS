@@ -6,7 +6,8 @@
 
 #define __HEADERSIZE 4
 #include "thrFunc.h"
-
+#include "ConfigLoader.hpp"
+#include<utility>
 
 int record(void* outputBuffer, void* inputBuffer, unsigned int nBufferFrames, double streamTime, unsigned int status, void* userData)
 {
@@ -24,6 +25,8 @@ int main()
     sample_t data[NUMOFSAMPLES];
     auto sum = NUMOFSAMPLES;
     auto res = 0;
+    ConfigLoader cfgloader{"../config/cfg.txt"};
+    auto [serialname, audioDeviceId] = cfgloader.interpret();
     while (sum > (NUMOFSAMPLES / 2))
     {
         sum = 0;
@@ -40,7 +43,7 @@ int main()
         exit(0);
     }
     RtAudio::StreamParameters parameters;
-    parameters.deviceId = 2;
+    parameters.deviceId = audioDeviceId;
     parameters.nChannels = 1;
     parameters.firstChannel = 0;
     unsigned int sampleRate = 44100;
@@ -49,11 +52,11 @@ int main()
     {
         std::cout << sound.getDeviceInfo(i).name<<'\n';
     }
-    std::cout << "using  " << sound.getDeviceInfo(2).name;
+    std::cout << "using  " << sound.getDeviceInfo(audioDeviceId).name;
     
     try {
         sound.openStream(NULL, &parameters, RTAUDIO_SINT16, sampleRate, &bufferFrames, &record,data);
-        sound.startStream();
+       sound.startStream();
     }
     catch (RtAudioError& e)
     {
@@ -61,8 +64,8 @@ int main()
         exit(0);
     }
     char input;
-    std::function<void(sample_t[],unsigned)> func = thrFunc;
-    threadHelper worker(func, data,rs);
+    std::function<void(sample_t[],unsigned, const std::string&)> func = thrFunc;
+    threadHelper worker(func, data,rs,serialname);
     std::cout << "\nRecording ... press <enter> to quit. \n";
     std::cin.get(input);
     worker.interruptThread();
