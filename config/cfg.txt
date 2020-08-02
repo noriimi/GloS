@@ -1,0 +1,3 @@
+GloSConfig
+SerialPort : COM1
+Audio Device : 2 \\Miks stereo (Realtek High Definition Audio)
