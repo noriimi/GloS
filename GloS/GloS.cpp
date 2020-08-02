@@ -48,10 +48,6 @@ int main()
     parameters.firstChannel = 0;
     unsigned int sampleRate = 44100;
     unsigned int bufferFrames = NUMOFSAMPLES;
-    for (int i = 0; i < sound.getDeviceCount(); i++)
-    {
-        std::cout << sound.getDeviceInfo(i).name<<'\n';
-    }
     std::cout << "using  " << sound.getDeviceInfo(audioDeviceId).name;
     
     try {
