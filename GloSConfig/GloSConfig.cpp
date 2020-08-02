@@ -1,6 +1,7 @@
 #include "GloSConfig.h"
 #include "../commons/PortsFinder.hpp"
 #include "../commons/RtAudio/RtAudio.h"
+#include <qmessagebox.h>
 GloSConfig::GloSConfig(QWidget *parent)
     : QMainWindow(parent)
 {
@@ -42,4 +43,20 @@ void GloSConfig::on_cB_Audio_currentIndexChanged(const QString& name)
 {   
     ui.lE_Audio->setText(QString::fromStdString(names.at(name.toInt())));
 
+}
+void GloSConfig::on_b_Save_clicked()
+{
+    cfgSaver << "SerialPort : ";
+    cfgSaver << ui.lE_Port->text().toStdString();
+    cfgSaver << "\n";
+    cfgSaver << "Audio Device : ";
+    cfgSaver << ui.cB_Audio->currentIndex();
+    cfgSaver << " \\\\";
+    cfgSaver << ui.lE_Audio->text().toStdString();
+    cfgSaver << "\n";
+    QMessageBox qmsg;
+    qmsg.setText("Succesfully saved!");
+    qmsg.setWindowTitle("Saved");
+    qmsg.exec();
+    close();
 }

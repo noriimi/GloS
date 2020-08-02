@@ -47,12 +47,18 @@
     <ClCompile Include="..\commons\PortsFinder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ConfigSaver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PortsFinder.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="RtAudio\RtAudio.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ConfigSaver.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

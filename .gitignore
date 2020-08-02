@@ -340,3 +340,4 @@ ASALocalRun/
 healthchecksdb
 /GloS/Timer.cpp
 /GloS/Timer.hpp
+/GloSConfig/cfg.txt

@@ -197,10 +197,12 @@
     <QtRcc Include="GloSConfig.qrc" />
     <QtUic Include="GloSConfig.ui" />
     <QtMoc Include="GloSConfig.h" />
+    <ClCompile Include="ConfigSaver.cpp" />
     <ClCompile Include="GloSConfig.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ConfigSaver.hpp" />
     <ClInclude Include="PortsFinder.hpp" />
     <ClInclude Include="RtAudio\RtAudio.h" />
   </ItemGroup>
