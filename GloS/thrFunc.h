@@ -5,7 +5,6 @@
 
 #include<iostream>
 #include<array>
-#include"../commons/PortsFinder.hpp"
 #include<chrono>
 #include<vector>
 #include"SerialPort.hpp"
@@ -17,7 +16,7 @@
 #if LOGf 
 #include<fstream>
 #endif
-void thrFunc(sample_t data[],unsigned rs) noexcept//Placeholder function
+void thrFunc(sample_t data[],unsigned rs, const std::string& serialname) noexcept//Placeholder function
 {
 #if LOGf
 	std::ofstream myfile;
@@ -37,11 +36,8 @@ void thrFunc(sample_t data[],unsigned rs) noexcept//Placeholder function
 	frame[1] = 0xAD;
 	frame[2] = 0xBE;
 	frame[3] = 0xEF;
-	PortsFinder finder{};
-	finder.find();
-	auto port = SerialPort::parse(finder.getFoundPort(0));
-	std::cout << "Found port : " << port << std::endl;
-	SerialPort serial(port, 115200, 8, ONESTOPBIT, NOPARITY, FALSE);
+	//std::string serialname = "COM1";
+	SerialPort serial(serialname, 115200, 8, ONESTOPBIT, NOPARITY, FALSE);
 	while (1)
 	{
 		if (threadHelper::staticFlags::s_kill_)
