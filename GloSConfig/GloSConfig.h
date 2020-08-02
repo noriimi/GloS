@@ -18,5 +18,5 @@ private slots:
 private:
     Ui::GloSConfigClass ui;
     std::vector<std::string> names;
-    ConfigSaver cfgSaver{ "cfg.txt" };
+    ConfigSaver cfgSaver{ "../config/cfg.txt" };
 };
