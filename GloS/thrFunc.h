@@ -5,11 +5,11 @@
 
 #include<iostream>
 #include<array>
-#include"PortsFinder.hpp"
+#include"../commons/PortsFinder.hpp"
 #include<chrono>
 #include<vector>
 #include"SerialPort.hpp"
-#include"RtAudio/RtAudio.h"
+#include"../commons/RtAudio/RtAudio.h"
 #include"simple_fft/fft.hpp"
 #include"threadHelper.hpp"
 #define MULTIPLIER 1

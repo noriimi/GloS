@@ -40,7 +40,7 @@ int main()
         exit(0);
     }
     RtAudio::StreamParameters parameters;
-    parameters.deviceId = 3;
+    parameters.deviceId = 2;
     parameters.nChannels = 1;
     parameters.firstChannel = 0;
     unsigned int sampleRate = 44100;
@@ -49,7 +49,7 @@ int main()
     {
         std::cout << sound.getDeviceInfo(i).name<<'\n';
     }
-    std::cout << "using  " << sound.getDeviceInfo(3).name;
+    std::cout << "using  " << sound.getDeviceInfo(2).name;
     
     try {
         sound.openStream(NULL, &parameters, RTAUDIO_SINT16, sampleRate, &bufferFrames, &record,data);
