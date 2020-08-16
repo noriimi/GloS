@@ -60,7 +60,7 @@ int main()
         exit(0);
     }
     char input;
-    std::function<void(sample_t[],unsigned, const std::string&)> func = thrFunc;
+    std::function func = thrFunc;
     threadHelper worker(func, data,rs,serialname);
     std::cout << "\nRecording ... press <enter> to quit. \n";
     std::cin.get(input);
