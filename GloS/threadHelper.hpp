@@ -6,8 +6,11 @@ typedef int16_t sample_t;
 class threadHelper
 {
 public:
-	threadHelper(void (*func)(sample_t[],unsigned, const std::string&),sample_t[],unsigned, const std::string&);
-	threadHelper(std::function<void(sample_t[],unsigned, const std::string&)>, sample_t[],unsigned, const std::string&);
+	template<class _Fn,class ... _Args>
+	explicit threadHelper(_Fn&& _Fx, _Args&&... _Ax)
+	{
+		pThread_ = new std::thread(std::forward<_Fn>(_Fx), std::forward<_Args>(_Ax)...);
+	}
 	~threadHelper();
 	void killThread();
 	void interruptThread();
