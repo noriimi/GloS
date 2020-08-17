@@ -1,5 +1,5 @@
 #include "PortsFinder.hpp"
-
+#include <windows.h>
 bool PortsFinder::find()
 {
 	bool isFound = false;
@@ -22,20 +22,4 @@ const wchar_t*& PortsFinder::getFoundPort(unsigned position)
 size_t PortsFinder::numberOfPorts()
 {
 	return foundPorts_.size();
-}
-std::string PortsFinder::parse(LPCWSTR source)
-{
-	size_t size = 0;
-	size = wcsnlen_s(source, 10);
-	if (size > 1)
-	{
-		std::string test = "";
-		for (auto i = 0; i < size; i++)
-		{
-			test += char(source[i]);
-		}
-		return test;
-	}
-	else
-		return "";
 }
