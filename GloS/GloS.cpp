@@ -7,7 +7,6 @@
 #define __HEADERSIZE 4
 #include "thrFunc.h"
 #include "ConfigLoader.hpp"
-#include<utility>
 
 int record(void* outputBuffer, void* inputBuffer, unsigned int nBufferFrames, double streamTime, unsigned int status, void* userData)
 {
@@ -46,7 +45,7 @@ int main()
     parameters.deviceId = audioDeviceId;
     parameters.nChannels = 1;
     parameters.firstChannel = 0;
-    unsigned int sampleRate = 44100;
+    constexpr unsigned int sampleRate = 44100;
     unsigned int bufferFrames = NUMOFSAMPLES;
     std::cout << "using  " << sound.getDeviceInfo(audioDeviceId).name;
     

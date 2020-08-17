@@ -15,7 +15,7 @@ public:
 	void killThread();
 	void interruptThread();
 	void resumeThread();
-	void joinThread();
+	void joinThread() const;
 	class staticFlags {
 		static std::atomic <bool> s_kill_;
 		static std::atomic<bool> s_interrupt_;
@@ -31,4 +31,3 @@ private:
 	std::thread* pThread_;
 	
 };
-

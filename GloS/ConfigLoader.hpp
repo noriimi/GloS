@@ -7,7 +7,7 @@ class ConfigLoader
 public:
 	ConfigLoader(const std::string& filename);
 	~ConfigLoader();
-	std::pair<std::string, int> interpret();
+	const std::pair<const std::string,const int> interpret();
 private:
 	std::ifstream file;
 };

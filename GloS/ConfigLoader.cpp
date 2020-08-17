@@ -11,7 +11,7 @@ ConfigLoader::~ConfigLoader()
 	file.close();
 }
 
-std::pair<std::string, int> ConfigLoader::interpret()
+const std::pair<const std::string,const int> ConfigLoader::interpret()
 {
 	std::regex serialR("COM[0-9]");
 	std::regex audioR("[0-9]");
@@ -34,5 +34,6 @@ std::pair<std::string, int> ConfigLoader::interpret()
 		audioDeviceId = std::stoi(matchesA.str());
 		buffv = matchesA.suffix().str();
 	}
-	return std::pair<std::string, int>(serialName,audioDeviceId);
+	return std::pair<const std::string,const int>(serialName,audioDeviceId);
 }
+

@@ -14,7 +14,7 @@ void threadHelper::killThread()
 	if (pThread_->joinable())
 		pThread_->detach();
 }
-void threadHelper::joinThread()
+void threadHelper::joinThread() const
 {
 	if (pThread_->joinable())
 		pThread_->join();
