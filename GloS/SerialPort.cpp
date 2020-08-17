@@ -21,18 +21,17 @@ SerialPort::SerialPort(std::string nameOfPort, unsigned Baudrate, unsigned ByteS
 	timeouts.WriteTotalTimeoutConstant = 50;
 	timeouts.WriteTotalTimeoutMultiplier = 10;
 }
-void SerialPort::Send(std::string packet)
+void SerialPort::Send(const std::string& packet) const
 {
 	unsigned long NoOfBytesWritten=0;
 	WriteFile(hSerial_,	packet.c_str(),(DWORD)packet.size(), &NoOfBytesWritten, NULL);
 }
-void SerialPort::Send(void* source,size_t size)
+void SerialPort::Send(void* source,const size_t& size) const
 {
 	unsigned long NoOfBytesWritten = 0;
 	WriteFile(hSerial_,source, (DWORD)size, &NoOfBytesWritten, NULL);
-	//std::cout << "wyslano\n ";
 }
-std::string SerialPort::Read()
+const std::string SerialPort::Read()
 {//TODO
 	/*bool Status;
 	DWORD dwEventMask;
@@ -62,27 +61,11 @@ std::string SerialPort::Read()
 	return result;*/
 	return "";
 }
-bool SerialPort::isOpen()
+bool SerialPort::isOpen() const
 {
 	return !(hSerial_ == INVALID_HANDLE_VALUE);
 }
-std::string SerialPort::parse(LPCWSTR source)
-{
-	size_t size = 0;
-	size = wcsnlen_s(source,10);
-	if (size > 1)
-	{
-		std::string test = "";
-		for (auto i = 0; i < size; i++)
-		{
-			test += char(source[i]);
-		}
-		return test;
-	}
-	else
-		return "";
-}
-void SerialPort::operator<<(std::string& packet)
+void SerialPort::operator<<(const std::string& packet)
 {
 	this->Send(packet);
 }
@@ -94,7 +77,7 @@ SerialPort::~SerialPort()
 {
 	CloseHandle(hSerial_);
 }
-void SerialPort::UpdateLED(void* frame, size_t size)
+void SerialPort::UpdateLED(void* frame, const size_t& size)
 {
 	unsigned long NoOfBytesWritten = 0;
 	WriteFile(hSerial_, frame, (DWORD)size, &NoOfBytesWritten, NULL);

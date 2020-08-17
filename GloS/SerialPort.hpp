@@ -7,13 +7,12 @@ class SerialPort
 public:
 	SerialPort(std::string, unsigned Baudrate, unsigned ByteSize, unsigned StopBits, unsigned Parity, unsigned XON);
 	~SerialPort();
-	std::string Read();
-	void Send(std::string);
-	void Send(void*,size_t);
-	void UpdateLED(void*,size_t size);
-	bool isOpen();
-	static std::string parse(LPCWSTR);
-	void operator<<(std::string&);
+	const std::string Read();
+	void Send(const std::string&) const;
+	void Send(void*,const size_t&) const;
+	void UpdateLED(void*,const size_t& size);
+	bool isOpen() const;
+	void operator<<(const std::string&);
 	void operator<<(const char*);
 private:
 	HANDLE hSerial_;
